@@ -4,6 +4,7 @@ const express = require("express");
 // const te = require("tradingeconomics");
 const PORT = process.env.PORT || 3000;
 const API_KEY = process.env.API_KEY;
+const normalize = require("./src/js/normalize.js");
 
 const app = express();
 app.set("view engine", "ejs");
@@ -13,12 +14,13 @@ app.set("views", path.join(__dirname, "src/views"));
 // Pulling from example JSON file to not exceed API limits for month. Will need to use below code to TE make api calls
 const country1Data = require("./country1Data.json");
 const country2Data = require("./country2Data.json");
+
 app.get("/", async (req, res, next) => {
   try {
     // const country1 = req.query?.country1 || "united states";
     // const country2 = req.query?.country2 || "china";
-    const country1 = "united states";
-    const country2 = "china";
+    const country1Name = "united states";
+    const country2Name = "china";
 
     // await te.login(API_KEY);
 
@@ -37,30 +39,15 @@ app.get("/", async (req, res, next) => {
     //   (category = "aircraft, spacecraft")
     // );
 
-    const country1DataFormatted = {
-      name: country1,
-      totalWorldExports: country1Data[0],
-      toEachOtherExports: country1Data.find(
-        (item) => item.country2.toLowerCase() === country2.toLowerCase()
-      ),
-      topCountriesExports: country1Data.slice(1, 21),
-    };
+    const [country1, country2] = normalize(
+      {
+        name: country1Name,
+        data: country1Data,
+      },
+      { name: country2Name, data: country2Data }
+    );
 
-    const country2DataFormatted = {
-      name: country2,
-      totalWorldExports: country2Data[0],
-      toEachOtherExports: country2Data.find(
-        (item) => item.country2.toLowerCase() === country1.toLowerCase()
-      ),
-      topCountriesExports: country2Data.slice(1, 21),
-    };
-
-    console.log(country1DataFormatted);
-
-    res.render("index", {
-      country1: country1DataFormatted,
-      country2: country2DataFormatted,
-    });
+    res.render("index", { country1, country2 });
   } catch (err) {
     console.error("Error", err.message);
     res.status(500).send("Error fetching data");
