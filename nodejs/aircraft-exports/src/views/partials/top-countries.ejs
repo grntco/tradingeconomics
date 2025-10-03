@@ -1,32 +1,42 @@
-<table>
-    <thead>
-        <tr>
-            <th>To</th>
-            <th>Value</th>
-            <th>Date</th>
-            <th>Last Updated</th>
-            <th>Link</th>
-        </tr>
-    </thead>
-    <tbody>
-        <% country.forEach(item=> { %>
+<div class="top-countries">
+    <h3>
+        <%= country.name %>
+    </h3>
+    <table>
+        <thead>
             <tr>
-                <td>
-                    <%= item.country2 %>
-                </td>
-                <td>
-                    <%= item.value %>
-                </td>
-                <td>
-                    <%= item.date %>
-                </td>
-                <td>
-                    <%= item.lastupdate %>
-                </td>
-                <td>
-                    <%= item.url %>
-                </td>
+                <th class="text-center">Rank</th>
+                <th>To</th>
+                <th>Value</th>
+                <th>Year</th>
+                <th>Last Updated</th>
+                <th class="text-center">TE Link</th>
             </tr>
-            <% }) %>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            <% country.topCountries.forEach((item, index)=> { %>
+                <tr>
+                    <td class="text-center">
+                        <%= index + 1 %>
+                    </td>
+                    <td>
+                        <%= item.country2 %>
+                    </td>
+                    <td>
+                        <%= item.prettyValue %>
+                    </td>
+                    <td>
+                        <%= item.date %>
+                    </td>
+                    <td>
+                        <%= item.prettyLastUpdated %>
+                    </td>
+                    <td class="text-center">
+                        <a href="https://tradingeconomics.com<%= item.url %>" target="_blank"
+                            rel="noopener noreferrer">View</a>
+                    </td>
+                </tr>
+                <% }) %>
+        </tbody>
+    </table>
+</div>

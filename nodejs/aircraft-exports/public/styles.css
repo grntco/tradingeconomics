@@ -5,7 +5,8 @@
 }
 
 :root {
-  --font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /* --font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; */
+  --font-family: "Noto Sans", sans-serif;
   --primary-bg-color: #fafafa;
   --secondary-bg-color: #eeeeee;
   --tertiary-bg-color: #2a2a2a;
@@ -13,9 +14,12 @@
   --primary-txt-color: #333333;
   --secondary-txt-color: #666666;
   --tertiary-txt-color: #8a8a8a;
-  --disabled-txt-color: red;
+  --white: #fff;
+  /* --disabled-txt-color: red; */
   --red: #ff3333;
+  --red-dark: ;
   --blue: #3333ff;
+  --blue-dark: #0000ff;
   --green: #329932;
   --box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.1);
 }
@@ -28,9 +32,9 @@ body {
 }
 
 header {
-  padding: 1rem 0rem;
+  padding: 1rem 1rem;
   background-color: var(--tertiary-bg-color);
-  color: #fff;
+  color: var(--white);
 }
 
 nav {
@@ -39,16 +43,17 @@ nav {
 }
 
 nav a {
-  color: #fff;
+  color: var(--white);
   text-decoration: none;
 }
 
 nav a:hover {
+  color: var(--tertiary-txt-color);
   text-decoration: underline;
 }
 
 section {
-  padding: 6rem 6rem;
+  padding: 6rem 3rem;
 }
 
 section + section {
@@ -57,12 +62,27 @@ section + section {
 
 h1,
 h2 {
-  margin-top: 1.5rem;
+  margin: 1.5rem 0 0.5rem;
+}
+
+h2,
+h3 {
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
 }
 
 p {
-  margin-top: 1rem;
+  margin: 1rem 0 1.25rem;
   line-height: 1.5rem;
+}
+
+a {
+  color: var(--secondary-txt-color);
+  text-underline-offset: 4px;
+}
+
+a:hover {
+  color: var(--primary-txt-color);
 }
 
 .container {
@@ -81,12 +101,12 @@ p {
 
 .btn {
   background: none;
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--border-color);
+  border: none;
+  padding: 0.75rem 1rem;
   border-radius: 4px;
-  background-color: var(--primary-bg-color);
-  color: var(--tertiary-txt-color);
-  /* text-transform: uppercase; */
+  background-color: var(--blue);
+  color: var(--white);
+  font-family: var(--font-family);
   font-weight: 600;
   font-size: 0.9rem;
   letter-spacing: 0.025rem;
@@ -96,6 +116,7 @@ p {
 }
 
 .btn:hover {
+  background-color: var(--blue-dark);
   box-shadow: none;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
@@ -108,18 +129,10 @@ p {
   background-color: var(--secondary-bg-color);
   border: 1px solid var(--border-color);
   border-radius: 4px;
-  /* box-shadow: var(--box-shadow);
-  -webkit-box-shadow: var(--box-shadow);
-  -moz-box-shadow: var(--box-shadow); */
-}
-
-.form-container h3 {
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border-color);
 }
 
 .form-container form {
-  padding-top: 1rem;
+  margin-top: 1rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -127,13 +140,13 @@ p {
 }
 
 .form-container .selects-list {
-  display: flex;
-  justify-content: space-between;
-  gap: 2rem;
   width: 100%;
+  display: flex;
+  gap: 2rem;
 }
 
 .form-container .select-item {
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
@@ -146,19 +159,70 @@ p {
 
 .form-container select {
   background: none;
-  padding: 0.5rem 1rem 0.5rem 0.5rem;
+  padding: 0.5rem;
   border: 1px solid var(--border-color);
   border-radius: 4px;
-  cursor: pointer;
+  font-family: var(--font-family);
   background-color: var(--primary-bg-color);
   color: var(--secondary-txt-color);
   font-size: 0.9rem;
+  cursor: pointer;
 }
 
-.form-container select option:selected {
-  color: var(--primary-txt-color);
+/* Top Countries Table */
+.top-countries table {
+  margin-top: 1rem;
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
 }
 
-.form-container select option:disabled {
-  color: var(--disabled-txt-color);
+.top-countries thead {
+  border: 1px solid var(--tertiary-bg-color);
+}
+
+.top-countries thead tr th {
+  background-color: var(--tertiary-bg-color);
+  color: #fff;
+  text-align: start;
+}
+
+.top-countries tbody {
+  border: 1px solid var(--border-color);
+}
+
+.top-countries tbody tr {
+  border-top: 1px solid var(--border-color);
+}
+
+.top-countries tbody tr:nth-child(odd) td {
+  background-color: var(--secondary-bg-color);
+}
+
+.top-countries th,
+td {
+  padding: 1rem 0.5rem;
+}
+
+.top-countries th.text-center,
+.top-countries td.text-center {
+  text-align: center;
+}
+
+/* MEDIA QUERIES */
+
+@media screen and (max-width: 1000px) {
+  .row {
+    flex-direction: column;
+  }
+
+  .col {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  section {
+    padding: 1rem;
+  }
 }
