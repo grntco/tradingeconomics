@@ -1,22 +1,24 @@
-const express = require("express");
-const te = require("tradingeconomics");
 require("dotenv").config();
-
-const app = express();
+const path = require("node:path");
+const express = require("express");
+// const te = require("tradingeconomics");
 const PORT = process.env.PORT || 3000;
 const API_KEY = process.env.API_KEY;
 
+const app = express();
+app.set("view engine", "ejs");
+app.use(express.static(path.join(__dirname, "public")));
+app.set("views", path.join(__dirname, "src/views"));
+
+// Pulling from example JSON file to not exceed API limits for month. Will need to use below code to TE make api calls
 const country1Data = require("./country1Data.json");
 const country2Data = require("./country2Data.json");
-
-app.set("view engine", "ejs");
-
 app.get("/", async (req, res, next) => {
   try {
-    const country1 = req.query?.country1 || "united states";
-    const country2 = req.query?.country2 || "china";
-
-    // Pulling from example JSON file to not exceed API limits for month. Will need to use below code to TE make api call
+    // const country1 = req.query?.country1 || "united states";
+    // const country2 = req.query?.country2 || "china";
+    const country1 = "united states";
+    const country2 = "china";
 
     // await te.login(API_KEY);
 
@@ -41,7 +43,7 @@ app.get("/", async (req, res, next) => {
       toEachOtherExports: country1Data.find(
         (item) => item.country2.toLowerCase() === country2.toLowerCase()
       ),
-      topCountriesExports: country1Data.splice(1, 21),
+      topCountriesExports: country1Data.slice(1, 21),
     };
 
     const country2DataFormatted = {
@@ -50,8 +52,10 @@ app.get("/", async (req, res, next) => {
       toEachOtherExports: country2Data.find(
         (item) => item.country2.toLowerCase() === country1.toLowerCase()
       ),
-      topCountriesExports: country2Data.splice(1, 21),
+      topCountriesExports: country2Data.slice(1, 21),
     };
+
+    console.log(country1DataFormatted);
 
     res.render("index", {
       country1: country1DataFormatted,
