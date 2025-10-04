@@ -256,7 +256,25 @@ td {
   .form-container .selects-list {
     flex-direction: column;
   }
+
   .chart-container {
     padding: 1rem;
+  }
+
+  .top-countries th,
+  td {
+    padding: 0.25rem 0.25rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  header nav {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .top-countries thead tr th:first-child,
+  .top-countries tbody tr td:first-child {
+    display: none;
   }
 }
