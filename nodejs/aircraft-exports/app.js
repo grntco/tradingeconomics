@@ -12,17 +12,17 @@ app.use(express.static(path.join(__dirname, "public")));
 app.set("views", path.join(__dirname, "src/views"));
 
 // Pulling from example JSON file to not exceed API limits for month. Will need to use below code to TE make api calls
-const country1Data = undefined;
-const country2Data = undefined;
-// const country1Data = require("./country1Data.json");
-// const country2Data = require("./country2Data.json");
+// const country1Data = undefined;
+// const country2Data = undefined;
+const country1Data = require("./country1Data.json");
+const country2Data = require("./country2Data.json");
 
 app.get("/", async (req, res, next) => {
   try {
-    // const country1 = req.query?.country1 || "united states";
-    // const country2 = req.query?.country2 || "china";
-    const country1Name = "china";
-    const country2Name = "united states";
+    const country1Name = req.query?.country1 || "united states";
+    const country2Name = req.query?.country2 || "china";
+    // const country1Name = "china";
+    // const country2Name = "united states";
 
     if (!country1Name.trim() || !country2Name.trim()) {
       throw new Error("Please select countries to compare.");
@@ -37,7 +37,7 @@ app.get("/", async (req, res, next) => {
     // await te.login(API_KEY);
 
     // const country1Data = await te.getCmtCountryByCategory(
-    //   (country = country1),
+    //   (country = country1Name),
     //   (type = "export"),
     //   (category = "aircraft, spacecraft")
     // );
@@ -46,7 +46,7 @@ app.get("/", async (req, res, next) => {
     // await new Promise((resolve) => setTimeout(resolve, 1000));
 
     // const country2Data = await te.getCmtCountryByCategory(
-    //   (country = country2),
+    //   (country = country2Name),
     //   (type = "export"),
     //   (category = "aircraft, spacecraft")
     // );
@@ -57,10 +57,10 @@ app.get("/", async (req, res, next) => {
 
     const [country1, country2] = normalize(
       {
-        name: country1Name,
+        name: country1Name.trim(),
         data: country1Data,
       },
-      { name: country2Name, data: country2Data }
+      { name: country2Name.trim(), data: country2Data }
     );
 
     res.render("index", { error: null, country1, country2 });
@@ -69,25 +69,6 @@ app.get("/", async (req, res, next) => {
     res
       .status(500)
       .render("index", { error: err.message, country1: null, country2: null });
-  }
-});
-
-// FOR TESTING API
-
-app.get("/test", async (req, res, next) => {
-  try {
-    // await te.login(API_KEY);
-
-    // const data = await te.getCmtCountryByCategory(
-    //   (country = "china"),
-    //   (type = "export"),
-    //   (category = "aircraft, spacecraft")
-    // );
-
-    res.send(data);
-  } catch (err) {
-    console.error("Error", err.message);
-    res.status(500).send("Error fetching data");
   }
 });
 
