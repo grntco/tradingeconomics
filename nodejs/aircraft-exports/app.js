@@ -12,15 +12,27 @@ app.use(express.static(path.join(__dirname, "public")));
 app.set("views", path.join(__dirname, "src/views"));
 
 // Pulling from example JSON file to not exceed API limits for month. Will need to use below code to TE make api calls
-const country1Data = require("./country1Data.json");
-const country2Data = require("./country2Data.json");
+const country1Data = undefined;
+const country2Data = undefined;
+// const country1Data = require("./country1Data.json");
+// const country2Data = require("./country2Data.json");
 
 app.get("/", async (req, res, next) => {
   try {
     // const country1 = req.query?.country1 || "united states";
     // const country2 = req.query?.country2 || "china";
-    const country1Name = "united states";
-    const country2Name = "china";
+    const country1Name = "china";
+    const country2Name = "united states";
+
+    if (!country1Name.trim() || !country2Name.trim()) {
+      throw new Error("Please select countries to compare.");
+    }
+
+    if (
+      country1Name.trim().toLowerCase() === country2Name.trim().toLowerCase()
+    ) {
+      throw new Error("Countries cannot be the same.");
+    }
 
     // await te.login(API_KEY);
 
@@ -39,6 +51,10 @@ app.get("/", async (req, res, next) => {
     //   (category = "aircraft, spacecraft")
     // );
 
+    if (!country1Data || !country2Data) {
+      throw new Error("Failed to retrieve data.");
+    }
+
     const [country1, country2] = normalize(
       {
         name: country1Name,
@@ -47,10 +63,12 @@ app.get("/", async (req, res, next) => {
       { name: country2Name, data: country2Data }
     );
 
-    res.render("index", { country1, country2 });
+    res.render("index", { error: null, country1, country2 });
   } catch (err) {
     console.error("Error", err.message);
-    res.status(500).send("Error fetching data");
+    res
+      .status(500)
+      .render("index", { error: err.message, country1: null, country2: null });
   }
 });
 
