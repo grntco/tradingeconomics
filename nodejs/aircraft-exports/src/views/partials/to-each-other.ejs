@@ -3,7 +3,8 @@
     <script>
         const country1Each = JSON.parse(`<%- JSON.stringify(country1) %>`);
         const country2Each = JSON.parse(`<%- JSON.stringify(country2) %>`);
-        
+
         generateChart("to-each-other", "", country1Each, country2Each)
     </script>
 </div>
+<p>View this data for <a href="https://tradingeconomics.com<%= country1.toEachOther?.url%>" target="_blank"><%= country1.name %></a> and <a href="https://tradingeconomics.com<%= country2.toEachOther?.url%>" target="_blank"><%= country2.name %></a> on Trading Economics.</p>
