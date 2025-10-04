@@ -1,0 +1,13 @@
+<div class="chart-container">
+    <canvas id=<%=id %>></canvas>
+    <script>
+        {
+            const id = JSON.parse(`<%- JSON.stringify(id) %>`);
+            const title = JSON.parse(`<%- JSON.stringify(title) %>`);
+            const labels = JSON.parse(`<%- JSON.stringify(labels) %>`);
+            const values = JSON.parse(`<%- JSON.stringify(values) %>`);
+
+            generateChart(id, title, labels, values);
+        }
+    </script>
+</div>

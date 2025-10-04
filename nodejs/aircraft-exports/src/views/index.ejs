@@ -28,8 +28,7 @@
                             <p>Currently comparing <strong>
                                     <%= country1.name %>
                                 </strong> and <strong>
-                                    <%= country2.name %>
-                                </strong>.
+                                    <%= country2.name %></strong>.
                             </p>
                         </div>
                         <div class="col col-right">
@@ -43,7 +42,8 @@
                     <h2>World Overview</h2>
                     <p>This chart shows the total value of aircraft and spacecraft exports from <%= country1.name %> and
                             <%= country2.name %> to the rest of the world.</p>
-                    <%- include('./partials/world-overview', {country1, country2}) %>
+                    <%- include('./partials/chart', {id: "world-overview", title: "Total World Aircraft & Spacecraft Exports", labels: [country1.name, country2.name], values: [country1.totalWorld.value, country2.totalWorld.value]}) %>
+                    <p>View this data for <a href="https://tradingeconomics.com<%= country1.totalWorld?.url%>" target="_blank"><%= country1.name %></a> and <a href="https://tradingeconomics.com<%= country2.totalWorld?.url%>" target="_blank"><%= country2.name %></a> on Trading Economics.</p>
                 </div>
             </section>
             <section>
@@ -55,7 +55,8 @@
                         <%= country1.name %> to <%= country2.name %> and from <%= country2.name %> to <%= country1.name
                                         %>).
                     </p>
-                    <%- include('./partials/to-each-other', {country1, country2}) %>
+                    <%- include('./partials/chart', {id: "to-each-other", title: "Aircraft & Spacecraft Exports to Each Other", labels: [country1.name, country2.name], values: [country1.toEachOther.value, country2.toEachOther.value]}) %>
+                    <p>View this data for <a href="https://tradingeconomics.com<%= country1.toEachOther?.url%>" target="_blank"><%= country1.name %></a> and <a href="https://tradingeconomics.com<%= country2.toEachOther?.url%>" target="_blank"><%= country2.name %></a> on Trading Economics.</p>
                 </div>
             </section>
             <section>

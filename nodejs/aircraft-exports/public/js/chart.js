@@ -1,24 +1,19 @@
-const generateChart = (canvasId, type, country1, country2) => {
+const generateChart = (
+  canvasId,
+  title,
+  labels = [],
+  values = [],
+) => {
   const canvas = document.getElementById(canvasId).getContext("2d");
-
-  const title =
-    type === "world"
-      ? "Total World Aircraft & Spacecraft Exports"
-      : "Aircraft & Spacecraft Exports to Each Other";
-
-  const data =
-    type === "world"
-      ? [country1.totalWorld?.value, country2.totalWorld?.value]
-      : [country1.toEachOther?.value, country2.toEachOther?.value];
 
   new Chart(canvas, {
     type: "bar",
     data: {
-      labels: [country1.name, country2.name],
+      labels: labels,
       datasets: [
         {
           label: title,
-          data: data,
+          data: values,
           backgroundColor: ["#3333ff", "#ff3333"],
           hoverBackgroundColor: ["#0000ff", "#ff0000"],
           borderRadius: 4,
