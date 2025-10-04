@@ -44,6 +44,7 @@
                 </div>
             </section>
             <% if (country1 && country2) { %>
+            <% if (country1.totalWorld && country2.totalWorld) { %>
             <section>
                 <div class="container">
                     <h2>World Overview</h2>
@@ -53,6 +54,8 @@
                     <p>View this data for <a href="https://tradingeconomics.com<%= country1.totalWorld?.url%>" target="_blank"><%= country1.name %></a> and <a href="https://tradingeconomics.com<%= country2.totalWorld?.url%>" target="_blank"><%= country2.name %></a> on Trading Economics.</p>
                 </div>
             </section>
+            <% } %>
+            <% if (country1.toEachOther && country2.toEachOther) { %>
             <section>
                 <div class="container">
                     <h2>To Each Other</h2>
@@ -66,6 +69,8 @@
                     <p>View this data for <a href="https://tradingeconomics.com<%= country1.toEachOther?.url%>" target="_blank"><%= country1.name %></a> and <a href="https://tradingeconomics.com<%= country2.toEachOther?.url%>" target="_blank"><%= country2.name %></a> on Trading Economics.</p>
                 </div>
             </section>
+            <% } %>
+            <% if (country1.topCountries && country2.topCountries) { %>
             <section>
                 <div class="container">
                     <h2>Top Countries</h2>
@@ -74,14 +79,15 @@
                     </p>
                     <div class="row">
                         <div class="col col-left">
-                            <%- include('./partials/top-countries', {country: country1 }) %>
+                            <%- include('./partials/top-countries', {name: country1.name, topCountries: country1.topCountries }) %>
                         </div>
                         <div class="col col-right">
-                            <%- include('./partials/top-countries', {country: country2 }) %>
+                            <%- include('./partials/top-countries', {name: country2.name, topCountries: country2.topCountries }) %>
                         </div>
                     </div>
                 </div>
             </section>
+            <% } %>
             <% } %>
         </main>
 </body>
