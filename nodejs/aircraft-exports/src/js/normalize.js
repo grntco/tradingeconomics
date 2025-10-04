@@ -10,19 +10,21 @@ const normalize = (
   const normData = countries.map((country, index) => {
     return {
       name: capitalizeName(country.name),
-      totalWorld: country.data[0],
-      toEachOther: country.data.find(
-        (item) =>
-          item.country2.toLowerCase() ===
-          countries[index === 0 ? 1 : 0].name.toLowerCase()
-      ),
-      topCountries: country.data.slice(1, 21).map((item) => {
-        return {
-          ...item,
-          prettyValue: formatToDollars(item.value),
-          prettyLastUpdated: format(new Date(item.lastupdate), "PP"),
-        };
-      }),
+      totalWorld: country.data[0].country2 === "World" ? country.data[0] : null,
+      toEachOther:
+        country.data.find(
+          (item) =>
+            item.country2.toLowerCase() ===
+            countries[index === 0 ? 1 : 0].name.toLowerCase()
+        ) || null,
+      topCountries:
+        country.data.slice(1, 21).map((item) => {
+          return {
+            ...item,
+            prettyValue: formatToDollars(item.value),
+            prettyLastUpdated: format(new Date(item.lastupdate), "PP"),
+          };
+        }) || null,
     };
   });
 
