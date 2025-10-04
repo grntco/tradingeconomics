@@ -1,7 +1,7 @@
 require("dotenv").config();
 const path = require("node:path");
 const express = require("express");
-// const te = require("tradingeconomics");
+const te = require("tradingeconomics");
 const PORT = process.env.PORT || 3000;
 const API_KEY = process.env.API_KEY;
 const normalize = require("./src/js/normalize.js");
@@ -11,18 +11,10 @@ app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 app.set("views", path.join(__dirname, "src/views"));
 
-// Pulling from example JSON file to not exceed API limits for month. Will need to use below code to TE make api calls
-// const country1Data = undefined;
-// const country2Data = undefined;
-const country1Data = require("./country1Data.json");
-const country2Data = require("./country2Data.json");
-
 app.get("/", async (req, res, next) => {
   try {
     const country1Name = req.query?.country1 || "united states";
     const country2Name = req.query?.country2 || "china";
-    // const country1Name = "china";
-    // const country2Name = "united states";
 
     if (!country1Name.trim() || !country2Name.trim()) {
       throw new Error("Please select countries to compare.");
@@ -34,22 +26,22 @@ app.get("/", async (req, res, next) => {
       throw new Error("Countries cannot be the same.");
     }
 
-    // await te.login(API_KEY);
+    await te.login(API_KEY);
 
-    // const country1Data = await te.getCmtCountryByCategory(
-    //   (country = country1Name),
-    //   (type = "export"),
-    //   (category = "aircraft, spacecraft")
-    // );
+    const country1Data = await te.getCmtCountryByCategory(
+      (country = country1Name),
+      (type = "export"),
+      (category = "aircraft, spacecraft")
+    );
 
-    // // Buffer for TE general limitation of 1 request per second
-    // await new Promise((resolve) => setTimeout(resolve, 1000));
+    // Buffer for TE general limitation of 1 request per second
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    // const country2Data = await te.getCmtCountryByCategory(
-    //   (country = country2Name),
-    //   (type = "export"),
-    //   (category = "aircraft, spacecraft")
-    // );
+    const country2Data = await te.getCmtCountryByCategory(
+      (country = country2Name),
+      (type = "export"),
+      (category = "aircraft, spacecraft")
+    );
 
     if (!country1Data || !country2Data) {
       throw new Error("Failed to retrieve data.");
@@ -73,5 +65,5 @@ app.get("/", async (req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Listening on PORT ${PORT}`);
+  console.log(`Listening on http://localhost:${PORT}`);
 });
