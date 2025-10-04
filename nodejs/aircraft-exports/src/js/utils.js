@@ -26,7 +26,7 @@ const formatToDollars = (value) => {
     percent = 0.00001;
     letter = "M";
   } else if (int >= billion) {
-    percent = 0.0000001;
+    percent = 0.00000001;
     letter = "B";
   }
 
