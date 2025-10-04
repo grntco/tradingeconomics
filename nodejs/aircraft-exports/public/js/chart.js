@@ -1,9 +1,4 @@
-const generateChart = (
-  canvasId,
-  title,
-  labels = [],
-  values = [],
-) => {
+const generateChart = (canvasId, title, labels = [], values = []) => {
   const canvas = document.getElementById(canvasId).getContext("2d");
 
   new Chart(canvas, {
@@ -82,6 +77,7 @@ const generateChart = (
             display: false,
           },
           ticks: {
+            padding: 20,
             font: {
               size: 16,
               family: "Noto Sans",
