@@ -39,8 +39,8 @@ This project allows a user to compare the aircraft and spacecraft exports from t
 
 ### Tech Stack
 
-I used Node.js/Express to build this project, with EJS for templating. To create the custom charts, I used the [Chart.js](https://www.chartjs.org/). 
+I used Node.js/Express to build this project, with EJS for templating. To create the custom charts, I used [Chart.js](https://www.chartjs.org/). 
 
 ### API
 
-Since this is a Node.js project, I was able to use the Trading Economics npm package. I used the method `getCmtCountryByCategory` to retrieve comtrade data by country name, type ('export') and category ('aircraft, spacecraft'). In the page request controller for the webpage, this method is called twice, once for each country to be compared, with a 1 second buffer in between due to the 1-call-per-second API rate limit. The data received from Trading Economics is then normalized into objects the EJS views can interpret.
+Since this is a Node.js project, I was able to use the Trading Economics npm package. I used the method `getCmtCountryByCategory` to retrieve Comtrade data by country name, type ('export') and category ('aircraft, spacecraft'). In the page request controller for the webpage, this method is called twice, once for each country to be compared, with a 1 second buffer in between due to the 1-call-per-second API rate limit. The data received from Trading Economics is then normalized into objects the EJS views can interpret.
