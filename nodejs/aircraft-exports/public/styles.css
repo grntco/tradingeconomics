@@ -168,6 +168,14 @@ a:hover {
   cursor: pointer;
 }
 
+/* Charts */
+.chart-container {
+  padding: 3rem 4rem;
+  background-color: var(--secondary-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+}
+
 /* Top Countries Table */
 .top-countries table {
   margin-top: 1rem;
@@ -222,6 +230,17 @@ td {
 
 @media screen and (max-width: 760px) {
   section {
+    padding: 1rem;
+  }
+
+  .form-container {
+    padding: 1rem;
+  }
+
+  .form-container .selects-list {
+    flex-direction: column;
+  }
+  .chart-container {
     padding: 1rem;
   }
 }
