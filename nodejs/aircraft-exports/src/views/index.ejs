@@ -5,6 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.min.js"></script>
+    <script src="/js/chart.js"></script>
     <title>Compare Aircraft, Spacecraft Exports</title>
 </head>
 
@@ -16,8 +22,14 @@
                     <div class="row">
                         <div class="col col-left">
                             <h1>Compare Aircraft & Spacecraft Exports</h1>
-                            <p>Use the form on this page to compare two countries' global aircraft and spacecraft
+                            <p>Use the form on this page to compare two countries' aircraft and spacecraft
                                 exports.
+                            </p>
+                            <p>Currently comparing <strong>
+                                    <%= country1.name %>
+                                </strong> and <strong>
+                                    <%= country2.name %>
+                                </strong>.
                             </p>
                         </div>
                         <div class="col col-right">
@@ -27,25 +39,44 @@
                 </div>
             </section>
             <section>
-                <%- include('./partials/world-overview', {country1: country1.totalWorldExports, country2:
-                    country2.totalWorldExports}) %>
+                <div class="container">
+                    <h2>World Overview</h2>
+                    <p>This chart shows the total value of aircraft and spacecraft exports from <%= country1.name %> and
+                            <%= country2.name %> to the rest of the world.</p>
+                    <%- include('./partials/world-overview', {country1, country2}) %>
+                </div>
             </section>
             <section>
-                <%- include('./partials/to-each-other', {country1: country1.toEachOtherExports, country2:
-                    country2.toEachOtherExports}) %>
+                <div class="container">
+                    <h2>To Each Other</h2>
+                    <p>This chart shows the value of aircraft and spacecraft exports from each country to the other
+                        (i.e.,
+                        from
+                        <%= country1.name %> to <%= country2.name %> and from <%= country2.name %> to <%= country1.name
+                                        %>).
+                    </p>
+                    <%- include('./partials/to-each-other', {country1, country2}) %>
+                </div>
             </section>
             <section>
-                <h3>
-                    <%= country1.name %>
-                </h3>
-                <%- include('./partials/top-countries', {country: country1.topCountriesExports }) %>
-                    <h3>
-                        <%= country2.name %>
-                    </h3>
-                    <%- include('./partials/top-countries', {country: country2.topCountriesExports }) %>
+                <div class="container">
+                    <h2>Top Countries</h2>
+                    <p>Below are the top 20 countries receiving the most aircraft and spacecraft exports from <%=
+                            country1.name %> and <%= country2.name %>.
+                    </p>
+                    <div class="row">
+                        <div class="col col-left">
+                            <%- include('./partials/top-countries', {country: country1 }) %>
+                        </div>
+                        <div class="col col-right">
+                            <%- include('./partials/top-countries', {country: country2 }) %>
+                        </div>
+                    </div>
+                </div>
             </section>
         </main>
-        <footer></footer>
 </body>
+
+
 
 </html>

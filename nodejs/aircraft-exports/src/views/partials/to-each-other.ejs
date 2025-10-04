@@ -1,8 +1,9 @@
-<div>
-    <p>
-        <%= country1?.value %>
-    </p>
-    <p>
-        <%= country2?.value %>
-    </p>
+<div class="chart-container">
+    <canvas id="to-each-other"></canvas>
+    <script>
+        const country1Each = JSON.parse(`<%- JSON.stringify(country1) %>`);
+        const country2Each = JSON.parse(`<%- JSON.stringify(country2) %>`);
+        
+        generateChart("to-each-other", "", country1Each, country2Each)
+    </script>
 </div>

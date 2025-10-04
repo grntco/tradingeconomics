@@ -1,8 +1,9 @@
-<div>
-    <p>
-        <%= country1.value %>
-    </p>
-    <p>
-        <%= country2.value %>
-    </p>
+<div class="chart-container">
+    <canvas id="world-overview"></canvas>
+    <script>
+        const country1World = JSON.parse(`<%- JSON.stringify(country1) %>`);
+        const country2World = JSON.parse(`<%- JSON.stringify(country2) %>`);
+
+        generateChart("world-overview", "world", country1World, country2World)
+    </script>
 </div>
