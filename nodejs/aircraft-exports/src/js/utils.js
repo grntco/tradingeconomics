@@ -13,26 +13,19 @@ const formatToDollars = (value) => {
   const int = parseInt(value);
 
   // Defining as vars to make sure number of 0s is consistent throughout if statement
+  const thousand = 1000;
   const tenThousand = 10000;
   const million = 1000000;
-  const billion = 10000000;
+  const billion = 1000000000;
 
-  let percent = 1;
-  let letter = "";
-  if (int > tenThousand && int < million) {
-    percent = 0.001;
-    letter = "K";
-  } else if (int >= million && int <= billion) {
-    percent = 0.00001;
-    letter = "M";
-  } else if (int >= billion) {
-    percent = 0.00000001;
-    letter = "B";
+  if (int >= billion) {
+    return "$" + (int / billion).toFixed(1) + "B";
+  } else if (int >= million) {
+    return "$" + (int / million).toFixed(1) + "M";
+  } else if (int >= tenThousand) {
+    return "$" + (int / thousand).toFixed(1) + "K";
   }
-
-  const decimal = int >= tenThousand ? Math.round(int * percent) / 10 : int;
-
-  return "$" + decimal.toString() + letter;
+  return "$" + int;
 };
 
 module.exports = {
